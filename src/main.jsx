@@ -334,7 +334,7 @@ function App() {
               <span className="card-arrow">↗</span>
             </article>
           </div>
-        
+        </section>
         <section id="practicas" className="section practice">
           <div className="section-label">EXPERIENCIA PRÁCTICA</div>
           <div className="practice-layout">
