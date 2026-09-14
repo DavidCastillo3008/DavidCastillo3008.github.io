@@ -88,19 +88,24 @@ function App() {
         });
       });
 
-      // Skills cards reveal
-      gsap.from(".skill-card", {
-        y: 40,
-        opacity: 0,
-        stagger: 0.08,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".skills-grid",
-          start: "top 85%",
-          once: true
-        }
-      });
+    gsap.fromTo(".skill-card",
+  {
+    y: 40,
+    opacity: 0
+  },
+  {
+    y: 0,
+    opacity: 1,
+    stagger: 0.08,
+    duration: 0.8,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".skills-grid",
+      start: "top 85%",
+      once: true
+    }
+  }
+);
 
       // Tasks reveal
       gsap.from(".task", {
