@@ -747,3 +747,41 @@ footer {
     grid-template-columns: 1fr; 
   }
 }
+/* SOLUCIÓN TECNOLOGÍAS */
+.skills-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.skill-card {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  min-height: 220px !important;
+  background: #131b2e !important;
+  border: 1px solid rgba(255,255,255,.15) !important;
+  border-radius: 12px !important;
+  padding: 30px !important;
+  position: relative !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+.skill-card h3 {
+  color: #f8fafc !important;
+}
+
+.skill-card p {
+  color: #94a3b8 !important;
+}
+
+.skill-number {
+  color: #3b82f6 !important;
+}
+
+.card-arrow {
+  color: #94a3b8 !important;
+}
