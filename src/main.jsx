@@ -405,7 +405,7 @@ function App() {
             </a>
             <div className="contact-links">
               <a href="mailto:davidcas3008@gmail.com">davidcas3008@gmail.com</a>
-              <a href="#" onClick={(e) => e.preventDefault()}>LinkedIn · AÑADE TU URL</a>
+              <a href="www.linkedin.com/in/david-castillo-bb9271436" onClick={(e) => e.preventDefault()}>Mi cuenta de LinkedIn</a>
             </div>
           </div>
         </section>
