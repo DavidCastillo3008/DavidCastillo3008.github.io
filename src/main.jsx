@@ -334,20 +334,7 @@ function App() {
               <span className="card-arrow">↗</span>
             </article>
           </div>
-        </section>
-
-          <div className="skills-grid">
-            {skills.map((skill) => (
-              <article className="skill-card" key={skill.name}>
-                <span className="skill-number">{skill.type}</span>
-                <h3>{skill.name}</h3>
-                <p>{skill.text}</p>
-                <span className="card-arrow">↗</span>
-              </article>
-            ))}
-          </div>
-        </section>
-
+        
         <section id="practicas" className="section practice">
           <div className="section-label">EXPERIENCIA PRÁCTICA</div>
           <div className="practice-layout">
