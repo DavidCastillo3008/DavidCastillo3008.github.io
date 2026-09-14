@@ -44,24 +44,26 @@ function App() {
         .from(".hero-scroll", { opacity: 0, duration: 0.6 }, "-=0.4");
 
       // Hero parallax
-      gsap.to(heroImage.current, {
-        yPercent: 12,
-        scale: 1.03,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        }
-      });
+      if (heroImage.current) {
+        gsap.to(heroImage.current, {
+          yPercent: 12,
+          scale: 1.03,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      }
 
       // Generic reveals
       gsap.utils.toArray(".reveal").forEach((el) => {
         gsap.from(el, {
-          y: 50,
+          y: 40,
           opacity: 0,
-          duration: 1,
+          duration: 0.9,
           ease: "power3.out",
           scrollTrigger: {
             trigger: el,
@@ -71,8 +73,8 @@ function App() {
         });
       });
 
-      // Timeline items reveal
-      gsap.utils.toArray(".timeline-item").forEach((item) => {
+      // Timeline cards reveal
+      gsap.utils.toArray(".timeline-card").forEach((item) => {
         gsap.from(item, {
           y: 40,
           opacity: 0,
@@ -80,27 +82,27 @@ function App() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: item,
-            start: "top 80%",
+            start: "top 85%",
             once: true
           }
         });
       });
 
-      // Skills cards
+      // Skills cards reveal
       gsap.from(".skill-card", {
-        y: 60,
+        y: 40,
         opacity: 0,
         stagger: 0.08,
         duration: 0.8,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".skills-grid",
-          start: "top 80%",
+          start: "top 85%",
           once: true
         }
       });
 
-      // Practice tasks
+      // Tasks reveal
       gsap.from(".task", {
         x: -30,
         opacity: 0,
@@ -109,7 +111,7 @@ function App() {
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".tasks",
-          start: "top 80%",
+          start: "top 85%",
           once: true
         }
       });
@@ -207,7 +209,7 @@ function App() {
               <div className="hero-photo-wrap">
                 <img
                   ref={heroImage}
-                  src="/fotoPerfil.jpeg"
+                  src="fotoPerfil.jpeg"
                   alt="David Castillo De Haro"
                   className="hero-photo"
                 />
@@ -250,7 +252,7 @@ function App() {
               <div className="timeline-dot">01</div>
               <div className="timeline-card">
                 <div className="institute-img-wrap">
-                  <img src="/image_beefe0.jpg" alt="IES Miguel Sánchez López" className="institute-img" />
+                  <img src="image_beefe0.jpg" alt="IES Miguel Sánchez López" className="institute-img" />
                 </div>
                 <div className="timeline-year">FORMACIÓN COMPLETADA</div>
                 <h3>Sistemas Microinformáticos<br />y Redes</h3>
@@ -268,7 +270,7 @@ function App() {
               <div className="timeline-dot">02</div>
               <div className="timeline-card">
                 <div className="institute-img-wrap">
-                  <img src="/image_beefbd.png" alt="IES Fernando III" className="institute-img" />
+                  <img src="image_beefbd.png" alt="IES Fernando III" className="institute-img" />
                 </div>
                 <div className="timeline-year">ACTUALMENTE ESTUDIANDO</div>
                 <h3>Desarrollo de Aplicaciones<br />Multiplataforma</h3>
@@ -314,9 +316,9 @@ function App() {
                 Durante mi etapa de prácticas trabajé en tareas de soporte y
                 mantenimiento informático en el <strong>IES Santa Teresa</strong>, poniendo en práctica los conocimientos adquiridos.
               </p>
-              
+
               <div className="practice-center-card reveal">
-                <img src="/image_bef2e4.png" alt="IES Santa Teresa" className="practice-center-img" />
+                <img src="image_bef2e4.png" alt="IES Santa Teresa" className="practice-center-img" />
                 <div className="practice-center-info">
                   <h4>IES Santa Teresa</h4>
                   <p>Centro de prácticas de formación</p>
@@ -371,7 +373,6 @@ function App() {
 
       <footer>
         <span>DAVID CASTILLO DE HARO</span>
-        <span>PORTFOLIO · 2026</span>
       </footer>
     </div>
   );
