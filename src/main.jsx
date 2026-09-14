@@ -193,7 +193,7 @@ function App() {
           <div className="hero-orb orb-two" />
 
           <div className="hero-content">
-            <div className="hero-kicker"><span /> PORTFOLIO · 2026</div>
+            <div className="hero-kicker"><span /> MI CUENTA · 2026</div>
 
             <h1 className="hero-title">
               <span className="line">DAVID</span>
@@ -224,7 +224,6 @@ function App() {
         </section>
 
         <section id="sobre-mi" className="section about">
-          <div className="section-number">01</div>
           <div className="section-label">SOBRE MÍ</div>
           <div className="about-content">
             <h2 className="section-title reveal">Una mente curiosa.<br /><em>Siempre aprendiendo.</em></h2>
@@ -243,7 +242,6 @@ function App() {
         </section>
 
         <section id="formacion" className="section formation">
-          <div className="section-number">02</div>
           <div className="section-label">FORMACIÓN</div>
           <div className="timeline">
             <div className="timeline-line"><div className="timeline-progress" /></div>
@@ -286,13 +284,57 @@ function App() {
           </div>
         </section>
 
-        <section id="tecnologias" className="section skills">
-          <div className="section-number">03</div>
+     <section id="tecnologias" className="section skills">
           <div className="section-label">TECNOLOGÍAS</div>
           <div className="skills-head">
             <h2 className="section-title reveal">Construyendo<br /><em>mi camino.</em></h2>
             <p className="reveal">Tecnologías y conocimientos que forman parte de mi aprendizaje y desarrollo.</p>
           </div>
+
+          <div className="skills-grid">
+            <article className="skill-card">
+              <span className="skill-number">01</span>
+              <h3>HTML5</h3>
+              <p>Estructura semántica, accesible y bien organizada para aplicaciones web.</p>
+              <span className="card-arrow">↗</span>
+            </article>
+
+            <article className="skill-card">
+              <span className="skill-number">02</span>
+              <h3>CSS3</h3>
+              <p>Diseño responsive, animaciones y maquetación web moderna.</p>
+              <span className="card-arrow">↗</span>
+            </article>
+
+            <article className="skill-card">
+              <span className="skill-number">03</span>
+              <h3>JavaScript</h3>
+              <p>Lógica de programación e interactividad dinámica en el cliente.</p>
+              <span className="card-arrow">↗</span>
+            </article>
+
+            <article className="skill-card">
+              <span className="skill-number">04</span>
+              <h3>Java</h3>
+              <p>Programación orientada a objetos y desarrollo de aplicaciones.</p>
+              <span className="card-arrow">↗</span>
+            </article>
+
+            <article className="skill-card">
+              <span className="skill-number">05</span>
+              <h3>SQL</h3>
+              <p>Consultas, diseño y gestión eficiente de bases de datos relacionales.</p>
+              <span className="card-arrow">↗</span>
+            </article>
+
+            <article className="skill-card">
+              <span className="skill-number">06</span>
+              <h3>Sistemas y Redes</h3>
+              <p>Configuración, mantenimiento de equipos y arquitectura de redes.</p>
+              <span className="card-arrow">↗</span>
+            </article>
+          </div>
+        </section>
 
           <div className="skills-grid">
             {skills.map((skill) => (
@@ -307,7 +349,6 @@ function App() {
         </section>
 
         <section id="practicas" className="section practice">
-          <div className="section-number">04</div>
           <div className="section-label">EXPERIENCIA PRÁCTICA</div>
           <div className="practice-layout">
             <div>
@@ -352,7 +393,6 @@ function App() {
         <section id="contacto" className="contact">
           <div className="contact-word">HABLEMOS</div>
           <div className="contact-inner">
-            <div className="section-number">05</div>
             <p className="section-label">CONTACTO</p>
             <h2>¿Tienes un proyecto<br />en mente?</h2>
             <p className="contact-copy">
