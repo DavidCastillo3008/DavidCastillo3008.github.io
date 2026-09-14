@@ -284,57 +284,62 @@ function App() {
           </div>
         </section>
 
-     <section id="tecnologias" className="section skills">
-          <div className="section-label">TECNOLOGÍAS</div>
-          <div className="skills-head">
-            <h2 className="section-title reveal">Construyendo<br /><em>mi camino.</em></h2>
-            <p className="reveal">Tecnologías y conocimientos que forman parte de mi aprendizaje y desarrollo.</p>
-          </div>
+    <section id="tecnologias" className="section skills">
+  <div className="section-label">TECNOLOGÍAS</div>
 
-          <div className="skills-grid">
-            <article className="skill-card">
-              <span className="skill-number">01</span>
-              <h3>HTML5</h3>
-              <p>Estructura semántica, accesible y bien organizada para aplicaciones web.</p>
-              <span className="card-arrow">↗</span>
-            </article>
+  <div className="skills-head">
+    <h2 className="section-title reveal">
+      Construyendo<br /><em>mi camino.</em>
+    </h2>
+    <p className="reveal">
+      Tecnologías y conocimientos que forman parte de mi aprendizaje y desarrollo.
+    </p>
+  </div>
 
-            <article className="skill-card">
-              <span className="skill-number">02</span>
-              <h3>CSS3</h3>
-              <p>Diseño responsive, animaciones y maquetación web moderna.</p>
-              <span className="card-arrow">↗</span>
-            </article>
+  <div className="skills-grid">
+    <article className="skill-card">
+      <span className="skill-number">01</span>
+      <h3>HTML5</h3>
+      <p>Estructura semántica, accesible y bien organizada para aplicaciones web.</p>
+      <span className="card-arrow">↗</span>
+    </article>
 
-            <article className="skill-card">
-              <span className="skill-number">03</span>
-              <h3>JavaScript</h3>
-              <p>Lógica de programación e interactividad dinámica en el cliente.</p>
-              <span className="card-arrow">↗</span>
-            </article>
+    <article className="skill-card">
+      <span className="skill-number">02</span>
+      <h3>CSS3</h3>
+      <p>Diseño responsive, animaciones y maquetación web moderna.</p>
+      <span className="card-arrow">↗</span>
+    </article>
 
-            <article className="skill-card">
-              <span className="skill-number">04</span>
-              <h3>Java</h3>
-              <p>Programación orientada a objetos y desarrollo de aplicaciones.</p>
-              <span className="card-arrow">↗</span>
-            </article>
+    <article className="skill-card">
+      <span className="skill-number">03</span>
+      <h3>JavaScript</h3>
+      <p>Lógica de programación e interactividad dinámica en el cliente.</p>
+      <span className="card-arrow">↗</span>
+    </article>
 
-            <article className="skill-card">
-              <span className="skill-number">05</span>
-              <h3>SQL</h3>
-              <p>Consultas, diseño y gestión eficiente de bases de datos relacionales.</p>
-              <span className="card-arrow">↗</span>
-            </article>
+    <article className="skill-card">
+      <span className="skill-number">04</span>
+      <h3>Java</h3>
+      <p>Programación orientada a objetos y desarrollo de aplicaciones.</p>
+      <span className="card-arrow">↗</span>
+    </article>
 
-            <article className="skill-card">
-              <span className="skill-number">06</span>
-              <h3>Sistemas y Redes</h3>
-              <p>Configuración, mantenimiento de equipos y arquitectura de redes.</p>
-              <span className="card-arrow">↗</span>
-            </article>
-          </div>
-        </section>
+    <article className="skill-card">
+      <span className="skill-number">05</span>
+      <h3>SQL</h3>
+      <p>Consultas, diseño y gestión eficiente de bases de datos relacionales.</p>
+      <span className="card-arrow">↗</span>
+    </article>
+
+    <article className="skill-card">
+      <span className="skill-number">06</span>
+      <h3>Sistemas y Redes</h3>
+      <p>Configuración, mantenimiento de equipos y arquitectura de redes.</p>
+      <span className="card-arrow">↗</span>
+    </article>
+  </div>
+</section>
         <section id="practicas" className="section practice">
           <div className="section-label">EXPERIENCIA PRÁCTICA</div>
           <div className="practice-layout">
