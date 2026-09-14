@@ -27,8 +27,6 @@ const tasks = [
 function App() {
   const root = useRef(null);
   const heroImage = useRef(null);
-  const heroText = useRef(null);
-  const heroMeta = useRef(null);
   const cursor = useRef(null);
   const cursorFollower = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -42,42 +40,18 @@ function App() {
         .from(".hero-kicker", { y: 20, opacity: 0, duration: 0.7 }, "-=0.3")
         .from(".hero-title .line", { yPercent: 110, opacity: 0, stagger: 0.1, duration: 1.05 }, "-=0.2")
         .from(".hero-copy", { y: 25, opacity: 0, duration: 0.8 }, "-=0.5")
-        .from(".hero-photo-wrap", { clipPath: "inset(100% 0 0 0)", opacity: 0, duration: 1.25 }, "-=0.75")
+        .from(".hero-photo-wrap", { opacity: 0, scale: 0.95, duration: 1.1 }, "-=0.75")
         .from(".hero-scroll", { opacity: 0, duration: 0.6 }, "-=0.4");
 
       // Hero parallax
       gsap.to(heroImage.current, {
-        yPercent: 14,
-        scale: 1.04,
+        yPercent: 12,
+        scale: 1.03,
         ease: "none",
         scrollTrigger: {
           trigger: ".hero",
           start: "top top",
           end: "bottom top",
-          scrub: true
-        }
-      });
-
-      gsap.to(".hero-orb", {
-        yPercent: -35,
-        xPercent: 12,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        }
-      });
-
-      gsap.to(".hero-title", {
-        yPercent: -18,
-        opacity: 0.15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".hero",
-          start: "top top",
-          end: "75% top",
           scrub: true
         }
       });
@@ -85,50 +59,24 @@ function App() {
       // Generic reveals
       gsap.utils.toArray(".reveal").forEach((el) => {
         gsap.from(el, {
-          y: 60,
+          y: 50,
           opacity: 0,
           duration: 1,
           ease: "power3.out",
           scrollTrigger: {
             trigger: el,
-            start: "top 82%",
+            start: "top 85%",
             once: true
           }
         });
       });
 
-      // About text lines
-      gsap.from(".about-lead span", {
-        yPercent: 105,
-        opacity: 0,
-        stagger: 0.06,
-        duration: 0.9,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".about-lead",
-          start: "top 78%",
-          once: true
-        }
-      });
-
-      // Timeline draw
-      gsap.from(".timeline-progress", {
-        scaleY: 0,
-        transformOrigin: "top",
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".timeline",
-          start: "top 70%",
-          end: "bottom 70%",
-          scrub: true
-        }
-      });
-
-      gsap.utils.toArray(".timeline-item").forEach((item, i) => {
+      // Timeline items reveal
+      gsap.utils.toArray(".timeline-item").forEach((item) => {
         gsap.from(item, {
-          x: i % 2 ? 50 : -50,
+          y: 40,
           opacity: 0,
-          duration: 0.9,
+          duration: 0.8,
           ease: "power3.out",
           scrollTrigger: {
             trigger: item,
@@ -140,42 +88,29 @@ function App() {
 
       // Skills cards
       gsap.from(".skill-card", {
-        y: 80,
+        y: 60,
         opacity: 0,
-        rotateX: 12,
         stagger: 0.08,
-        duration: 0.9,
+        duration: 0.8,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".skills-grid",
-          start: "top 78%",
+          start: "top 80%",
           once: true
         }
       });
 
-      // Practice list
+      // Practice tasks
       gsap.from(".task", {
-        x: -45,
+        x: -30,
         opacity: 0,
         stagger: 0.08,
         duration: 0.7,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".tasks",
-          start: "top 78%",
+          start: "top 80%",
           once: true
-        }
-      });
-
-      // Contact parallax
-      gsap.to(".contact-word", {
-        xPercent: -12,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".contact",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
         }
       });
 
@@ -194,7 +129,7 @@ function App() {
         };
         window.addEventListener("mousemove", move);
 
-        const interactive = document.querySelectorAll("a, button, .skill-card");
+        const interactive = document.querySelectorAll("a, button, .skill-card, .timeline-card");
         interactive.forEach((el) => {
           el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
           el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
@@ -313,24 +248,38 @@ function App() {
 
             <article className="timeline-item">
               <div className="timeline-dot">01</div>
-              <div className="timeline-year">FORMACIÓN COMPLETADA</div>
-              <h3>Sistemas Microinformáticos<br />y Redes</h3>
-              <p>IES Miguel Sánchez López</p>
-              <span>Torredelcampo · Jaén</span>
-              <a href="https://www.iesmiguelsanchezlopez.es/" target="_blank" rel="noreferrer">
-                VISITAR CENTRO ↗
-              </a>
+              <div className="timeline-card">
+                <div className="institute-img-wrap">
+                  <img src="/image_beefe0.jpg" alt="IES Miguel Sánchez López" className="institute-img" />
+                </div>
+                <div className="timeline-year">FORMACIÓN COMPLETADA</div>
+                <h3>Sistemas Microinformáticos<br />y Redes</h3>
+                <p>IES Miguel Sánchez López</p>
+                <span>Torredelcampo · Jaén</span>
+                <div>
+                  <a href="https://www.iesmiguelsanchezlopez.es/" target="_blank" rel="noreferrer">
+                    VISITAR CENTRO ↗
+                  </a>
+                </div>
+              </div>
             </article>
 
             <article className="timeline-item timeline-right">
               <div className="timeline-dot">02</div>
-              <div className="timeline-year">ACTUALMENTE ESTUDIANDO</div>
-              <h3>Desarrollo de Aplicaciones<br />Multiplataforma</h3>
-              <p>IES Fernando III</p>
-              <span>Martos · Jaén</span>
-              <a href="https://iesfernandoiii.es/" target="_blank" rel="noreferrer">
-                VISITAR CENTRO ↗
-              </a>
+              <div className="timeline-card">
+                <div className="institute-img-wrap">
+                  <img src="/image_beefbd.png" alt="IES Fernando III" className="institute-img" />
+                </div>
+                <div className="timeline-year">ACTUALMENTE ESTUDIANDO</div>
+                <h3>Desarrollo de Aplicaciones<br />Multiplataforma</h3>
+                <p>IES Fernando III</p>
+                <span>Martos · Jaén</span>
+                <div>
+                  <a href="https://iesfernandoiii.es/" target="_blank" rel="noreferrer">
+                    VISITAR CENTRO ↗
+                  </a>
+                </div>
+              </div>
             </article>
           </div>
         </section>
@@ -363,10 +312,18 @@ function App() {
               <h2 className="section-title reveal">Manos a la<br /><em>obra.</em></h2>
               <p className="practice-intro reveal">
                 Durante mi etapa de prácticas trabajé en tareas de soporte y
-                mantenimiento informático, poniendo en práctica los conocimientos
-                adquiridos durante mi formación.
+                mantenimiento informático en el <strong>IES Santa Teresa</strong>, poniendo en práctica los conocimientos adquiridos.
               </p>
+              
+              <div className="practice-center-card reveal">
+                <img src="/image_bef2e4.png" alt="IES Santa Teresa" className="practice-center-img" />
+                <div className="practice-center-info">
+                  <h4>IES Santa Teresa</h4>
+                  <p>Centro de prácticas de formación</p>
+                </div>
+              </div>
             </div>
+
             <div className="tasks">
               {tasks.map((task, i) => (
                 <div className="task" key={task}>
@@ -400,11 +357,13 @@ function App() {
               Estoy abierto a nuevas oportunidades, proyectos y retos en el mundo tecnológico.
             </p>
             <a className="contact-button" href="mailto:davidcas3008@gmail.com">
-              <span>Enviame un correo</span>
+              <span>Envíame un correo</span>
               <b>↗</b>
             </a>
             <div className="contact-links">
-              <a href="https://www.linkedin.com/in/david-castillo-bb9271436/">Mi cuenta de LinkedIn</a>
+              <a href="https://www.linkedin.com/in/david-castillo-bb9271436/" target="_blank" rel="noreferrer">
+                Mi cuenta de LinkedIn
+              </a>
             </div>
           </div>
         </section>
