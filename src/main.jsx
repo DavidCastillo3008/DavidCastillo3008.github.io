@@ -252,7 +252,7 @@ function App() {
               <div className="timeline-dot">01</div>
               <div className="timeline-card">
                 <div className="institute-img-wrap">
-                  <img src="public/miguelSanchezLopez.png" alt="IES Miguel Sánchez López" className="institute-img" />
+                  <img src="/miguelSanchezLopez.png" alt="IES Miguel Sánchez López" className="institute-img" />
                 </div>
                 <div className="timeline-year">FORMACIÓN COMPLETADA</div>
                 <h3>Sistemas Microinformáticos<br />y Redes</h3>
@@ -270,7 +270,7 @@ function App() {
               <div className="timeline-dot">02</div>
               <div className="timeline-card">
                 <div className="institute-img-wrap">
-                  <img src="public/IES-Fernando-III_logo.jpg" alt="IES Fernando III" className="institute-img" />
+                  <img src="/IES-Fernando-III_logo.jpg" alt="IES Fernando III" className="institute-img" />
                 </div>
                 <div className="timeline-year">ACTUALMENTE ESTUDIANDO</div>
                 <h3>Desarrollo de Aplicaciones<br />Multiplataforma</h3>
@@ -318,7 +318,7 @@ function App() {
               </p>
 
               <div className="practice-center-card reveal">
-                <img src="public/santaTeresa.jpg" alt="IES Santa Teresa" className="practice-center-img" />
+                <img src="/santaTeresa.jpg" alt="IES Santa Teresa" className="practice-center-img" />
                 <div className="practice-center-info">
                   <h4>IES Santa Teresa</h4>
                   <p>Centro de prácticas de formación</p>
