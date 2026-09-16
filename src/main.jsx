@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./styles.css";
-import avatar from "./avatar.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,18 +24,156 @@ const tasks = [
   "Soporte y asistencia a usuarios"
 ];
 
+
+const darkTheme = {
+  bg: "#0b0f17",
+  surface: "#131b2e",
+  surfaceHover: "#1c2742",
+  text: "#f8fafc",
+  muted: "#94a3b8",
+  line: "rgba(255, 255, 255, 0.08)",
+  accent: "#3b82f6",
+  accentGlow: "rgba(59, 130, 246, 0.25)",
+  navBg: "rgba(11, 15, 23, 0.85)",
+  gridLine: "rgba(255,255,255,.05)",
+  outline: "rgba(248,250,252,.4)",
+  subtleWhite: "rgba(255,255,255,.015)",
+  shine: "rgba(255,255,255,.055)",
+  orbTwo: "rgba(37, 99, 235, 0.15)",
+  shadow: "rgba(0,0,0,0.5)",
+  cursorRing: "rgba(59, 130, 246, 0.4)",
+  cursorHover: "rgba(59, 130, 246, 0.1)"
+};
+
+const lightTheme = {
+  bg: "#f5f7fb",
+  surface: "#ffffff",
+  surfaceHover: "#eef4ff",
+  text: "#101827",
+  muted: "#667085",
+  line: "rgba(15, 23, 42, 0.10)",
+  accent: "#2563eb",
+  accentGlow: "rgba(37, 99, 235, 0.18)",
+  navBg: "rgba(245, 247, 251, 0.90)",
+  gridLine: "rgba(15,23,42,.055)",
+  outline: "rgba(15,23,42,.32)",
+  subtleWhite: "rgba(15,23,42,.025)",
+  shine: "rgba(255,255,255,.60)",
+  orbTwo: "rgba(37, 99, 235, 0.10)",
+  shadow: "rgba(15,23,42,0.14)",
+  cursorRing: "rgba(37, 99, 235, 0.35)",
+  cursorHover: "rgba(37, 99, 235, 0.10)"
+};
+
 function App() {
   const root = useRef(null);
   const heroImage = useRef(null);
   const cursor = useRef(null);
   const cursorFollower = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [lightMode, setLightMode] = useState(() => {
+    try {
+      return window.localStorage.getItem("portfolio-theme") === "light";
+    } catch {
+      return false;
+    }
+  });
   const [activeSkill, setActiveSkill] = useState(0);
   const skillsTrack = useRef(null);
   const skillsViewport = useRef(null);
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
   const autoplayRef = useRef(null);
+
+  const setThemeVariables = (theme) => {
+    const rootStyle = document.documentElement.style;
+    rootStyle.setProperty("--bg", theme.bg);
+    rootStyle.setProperty("--surface", theme.surface);
+    rootStyle.setProperty("--surface-hover", theme.surfaceHover);
+    rootStyle.setProperty("--text", theme.text);
+    rootStyle.setProperty("--muted", theme.muted);
+    rootStyle.setProperty("--line", theme.line);
+    rootStyle.setProperty("--accent", theme.accent);
+    rootStyle.setProperty("--accent-glow", theme.accentGlow);
+    rootStyle.setProperty("--nav-bg", theme.navBg);
+    rootStyle.setProperty("--grid-line", theme.gridLine);
+    rootStyle.setProperty("--outline", theme.outline);
+    rootStyle.setProperty("--subtle-white", theme.subtleWhite);
+    rootStyle.setProperty("--shine", theme.shine);
+    rootStyle.setProperty("--orb-two", theme.orbTwo);
+    rootStyle.setProperty("--shadow", theme.shadow);
+    rootStyle.setProperty("--cursor-ring", theme.cursorRing);
+    rootStyle.setProperty("--cursor-hover", theme.cursorHover);
+  };
+
+  useEffect(() => {
+    setThemeVariables(lightMode ? lightTheme : darkTheme);
+    document.documentElement.dataset.theme = lightMode ? "light" : "dark";
+  }, []);
+
+  const toggleTheme = () => {
+    const nextLight = !lightMode;
+    const target = nextLight ? lightTheme : darkTheme;
+    const rootElement = document.documentElement;
+
+    gsap.killTweensOf(rootElement);
+
+    gsap.to(rootElement, {
+      duration: 0.7,
+      ease: "power2.inOut",
+      "--bg": target.bg,
+      "--surface": target.surface,
+      "--surface-hover": target.surfaceHover,
+      "--text": target.text,
+      "--muted": target.muted,
+      "--line": target.line,
+      "--accent": target.accent,
+      "--accent-glow": target.accentGlow,
+      "--nav-bg": target.navBg,
+      "--grid-line": target.gridLine,
+      "--outline": target.outline,
+      "--subtle-white": target.subtleWhite,
+      "--shine": target.shine,
+      "--orb-two": target.orbTwo,
+      "--shadow": target.shadow,
+      "--cursor-ring": target.cursorRing,
+      "--cursor-hover": target.cursorHover,
+      onStart: () => {
+        document.documentElement.dataset.theme = nextLight ? "light" : "dark";
+      },
+      onComplete: () => {
+        try {
+          window.localStorage.setItem("portfolio-theme", nextLight ? "light" : "dark");
+        } catch {}
+      }
+    });
+
+    gsap.timeline()
+      .to(".theme-toggle-icon", {
+        rotate: nextLight ? 180 : -180,
+        scale: 0.7,
+        duration: 0.22,
+        ease: "power2.in"
+      })
+      .to(".theme-toggle-icon", {
+        rotate: nextLight ? 360 : 0,
+        scale: 1,
+        duration: 0.48,
+        ease: "back.out(1.7)"
+      }, "-=0.02");
+
+    gsap.fromTo(".theme-toggle", {
+      boxShadow: "0 0 0 rgba(59,130,246,0)"
+    }, {
+      boxShadow: "0 0 34px rgba(59,130,246,0.35)",
+      duration: 0.35,
+      yoyo: true,
+      repeat: 1,
+      ease: "power2.out"
+    });
+
+    setLightMode(nextLight);
+  };
 
   const goToSkill = (index, animate = true) => {
     const nextIndex = (index + skills.length) % skills.length;
@@ -261,18 +398,6 @@ function App() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  useEffect(() => {
-    let favicon = document.querySelector('link[data-portfolio-favicon]');
-    if (!favicon) {
-      favicon = document.createElement("link");
-      favicon.rel = "icon";
-      favicon.type = "image/png";
-      favicon.setAttribute("data-portfolio-favicon", "true");
-      document.head.appendChild(favicon);
-    }
-    favicon.href = avatar;
-  }, []);
-
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -296,21 +421,7 @@ function App() {
           <span />
         </button>
 
-        <div
-          className={`menu-backdrop ${menuOpen ? "open" : ""}`}
-          onClick={closeMenu}
-          aria-hidden="true"
-        />
-
         <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <div className="mobile-menu-brand">
-            <span className="mobile-menu-avatar">D</span>
-            <div>
-              <strong>DAVID CASTILLO</strong>
-              <small>PORTFOLIO · 2026</small>
-            </div>
-          </div>
-
           {[
             ["inicio", "Inicio"],
             ["sobre-mi", "Sobre mí"],
@@ -331,6 +442,17 @@ function App() {
           <div className="hero-orb orb-two" />
 
           <div className="hero-content">
+            <button
+              type="button"
+              className={`theme-toggle ${lightMode ? "is-light" : ""}`}
+              onClick={toggleTheme}
+              aria-label={lightMode ? "Cambiar al modo oscuro" : "Cambiar al modo claro"}
+              aria-pressed={lightMode}
+            >
+              <span className="theme-toggle-icon" aria-hidden="true">{lightMode ? "☾" : "☀"}</span>
+              <span>¿CÓMO DESEAS VERME?</span>
+            </button>
+
             <div className="hero-kicker"><span /> MI CUENTA · 2026</div>
 
             <h1 className="hero-title">
