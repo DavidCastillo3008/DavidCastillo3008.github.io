@@ -1130,84 +1130,102 @@ html[data-theme="light"] .contact-word { opacity: .055; }
   }
 }
 
-
-/* ===============================
-   SOLO AJUSTES EXTRA PARA MÓVIL
-   No modifica el diseño de escritorio.
-   =============================== */
-@media (max-width: 850px) {
-  .hero {
-    min-height: auto;
-    padding-top: 112px;
-    padding-bottom: 90px;
-  }
-
-  .hero-content {
-    width: 100%;
-  }
-
-  .hero-title {
-    font-size: clamp(3.6rem, 14vw, 7rem);
-    line-height: .86;
-    overflow-wrap: anywhere;
-  }
-
-  .hero-bottom {
-    margin-top: 28px;
-    gap: 34px;
-  }
-
-  .hero-copy {
-    max-width: 100%;
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
-  .hero-photo-wrap {
-    width: min(82vw, 380px);
-    height: min(105vw, 470px);
-    margin: 6px auto 0;
-    justify-self: center;
-  }
-
-  .hero-scroll {
-    position: static;
-    margin-top: 34px;
-  }
+/* =========================================================
+   MODO CLARO — SOLO CONTRASTE
+   La tipografía, tamaños, pesos, espaciados y layout son
+   exactamente los mismos que en modo oscuro.
+   ========================================================= */
+html[data-theme="light"] {
+  --muted: #526174;
+  --line: rgba(15, 23, 42, .12);
+  --grid-line: rgba(15, 23, 42, .055);
+  --stroke-text: rgba(16, 24, 39, .4);
 }
 
-@media (max-width: 520px) {
-  .hero {
-    padding: 100px 5vw 70px;
-  }
+html[data-theme="light"] .hero-title .accent-line {
+  color: transparent;
+  -webkit-text-stroke-color: var(--stroke-text);
+}
 
-  .hero-kicker {
-    margin-bottom: 16px;
-    font-size: 9px;
-  }
+html[data-theme="light"] .section-title em {
+  color: transparent;
+  -webkit-text-stroke-color: var(--stroke-text);
+}
 
-  .hero-title {
-    font-size: clamp(3.15rem, 15.5vw, 5.4rem);
-    letter-spacing: -.065em;
-  }
+html[data-theme="light"] .contact-word {
+  color: rgba(16, 24, 39, .055);
+  opacity: 1;
+}
 
-  .hero-bottom {
-    margin-top: 24px;
-    gap: 28px;
-  }
+html[data-theme="light"] .practice-center-card,
+html[data-theme="light"] .tasks,
+html[data-theme="light"] .timeline-card,
+html[data-theme="light"] .skill-card,
+html[data-theme="light"] .contact-card {
+  background: var(--surface);
+  border-color: var(--line);
+}
 
-  .hero-copy {
-    font-size: 13px;
-  }
+html[data-theme="light"] .task,
+html[data-theme="light"] .about,
+html[data-theme="light"] .formation,
+html[data-theme="light"] .skills,
+html[data-theme="light"] .practice,
+html[data-theme="light"] .contact,
+html[data-theme="light"] footer {
+  border-color: var(--line);
+}
 
-  .hero-photo-wrap {
-    width: min(86vw, 350px);
-    height: min(112vw, 430px);
-    margin-top: 0;
-  }
+html[data-theme="light"] .task p,
+html[data-theme="light"] .timeline-item h3,
+html[data-theme="light"] .timeline-item p,
+html[data-theme="light"] .skill-card h3,
+html[data-theme="light"] .practice-center-info h4,
+html[data-theme="light"] .contact-card h3,
+html[data-theme="light"] .contact h2,
+html[data-theme="light"] .about-lead {
+  color: var(--text);
+}
 
-  .hero-scroll {
-    margin-top: 28px;
-    font-size: 9px;
-  }
+html[data-theme="light"] .about-detail,
+html[data-theme="light"] .timeline-item span,
+html[data-theme="light"] .skills-head > p,
+html[data-theme="light"] .skill-card p,
+html[data-theme="light"] .practice-intro,
+html[data-theme="light"] .contact-copy,
+html[data-theme="light"] .contact-card p,
+html[data-theme="light"] .contact-card-type,
+html[data-theme="light"] footer {
+  color: var(--muted);
+}
+
+html[data-theme="light"] .menu-button {
+  color: var(--text);
+  background: var(--surface);
+  border-color: var(--line);
+}
+
+html[data-theme="light"] .menu-backdrop {
+  background: rgba(15, 23, 42, .32);
+}
+
+html[data-theme="light"] .nav-links {
+  background: var(--surface);
+  border-left-color: var(--line);
+}
+
+html[data-theme="light"] .nav-links a {
+  color: var(--text);
+  opacity: 1;
+  border-bottom-color: var(--line);
+}
+
+html[data-theme="light"] .theme-toggle {
+  color: var(--text);
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+}
+
+html[data-theme="light"] .institute-img-wrap,
+html[data-theme="light"] .contact-card-icon-wrap {
+  background: #fff;
 }

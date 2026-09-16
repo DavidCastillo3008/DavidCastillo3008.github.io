@@ -395,7 +395,7 @@ function App() {
               <div className="hero-photo-wrap">
                 <img
                   ref={heroImage}
-                  src="fotoPerfil.png"
+                  src="fotoPerfil.jpeg"
                   alt="David Castillo De Haro"
                   className="hero-photo"
                 />
