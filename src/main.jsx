@@ -3,16 +3,19 @@ import { createRoot } from "react-dom/client";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./styles.css";
+import gmailIcon from "./gmail.png";
+import instagramIcon from "./instagram.png";
+import linkedinIcon from "./linkedin.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
-  { name: "HTML", type: "01", text: "Estructura semántica y accesible." },
-  { name: "CSS", type: "02", text: "Interfaces responsive y modernas." },
-  { name: "Java", type: "03", text: "Programación orientada a objetos." },
-  { name: "SQL", type: "04", text: "Consultas y gestión de datos." },
-  { name: "Bases de datos", type: "05", text: "Modelado y organización de información." },
-  { name: "Sistemas", type: "06", text: "Mantenimiento y configuración de equipos." }
+  { name: "HTML", text: "Estructura semántica y accesible." },
+  { name: "CSS", text: "Interfaces responsive y modernas." },
+  { name: "Java", text: "Programación orientada a objetos." },
+  { name: "SQL", text: "Consultas y gestión de datos." },
+  { name: "Bases de datos", text: "Modelado y organización de información." },
+  { name: "Sistemas", text: "Mantenimiento y configuración de equipos." }
 ];
 
 const tasks = [
@@ -24,156 +27,18 @@ const tasks = [
   "Soporte y asistencia a usuarios"
 ];
 
-
-const darkTheme = {
-  bg: "#0b0f17",
-  surface: "#131b2e",
-  surfaceHover: "#1c2742",
-  text: "#f8fafc",
-  muted: "#94a3b8",
-  line: "rgba(255, 255, 255, 0.08)",
-  accent: "#3b82f6",
-  accentGlow: "rgba(59, 130, 246, 0.25)",
-  navBg: "rgba(11, 15, 23, 0.85)",
-  gridLine: "rgba(255,255,255,.05)",
-  outline: "rgba(248,250,252,.4)",
-  subtleWhite: "rgba(255,255,255,.015)",
-  shine: "rgba(255,255,255,.055)",
-  orbTwo: "rgba(37, 99, 235, 0.15)",
-  shadow: "rgba(0,0,0,0.5)",
-  cursorRing: "rgba(59, 130, 246, 0.4)",
-  cursorHover: "rgba(59, 130, 246, 0.1)"
-};
-
-const lightTheme = {
-  bg: "#f5f7fb",
-  surface: "#ffffff",
-  surfaceHover: "#eef4ff",
-  text: "#101827",
-  muted: "#667085",
-  line: "rgba(15, 23, 42, 0.10)",
-  accent: "#2563eb",
-  accentGlow: "rgba(37, 99, 235, 0.18)",
-  navBg: "rgba(245, 247, 251, 0.90)",
-  gridLine: "rgba(15,23,42,.055)",
-  outline: "rgba(15,23,42,.32)",
-  subtleWhite: "rgba(15,23,42,.025)",
-  shine: "rgba(255,255,255,.60)",
-  orbTwo: "rgba(37, 99, 235, 0.10)",
-  shadow: "rgba(15,23,42,0.14)",
-  cursorRing: "rgba(37, 99, 235, 0.35)",
-  cursorHover: "rgba(37, 99, 235, 0.10)"
-};
-
 function App() {
   const root = useRef(null);
   const heroImage = useRef(null);
   const cursor = useRef(null);
   const cursorFollower = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [lightMode, setLightMode] = useState(() => {
-    try {
-      return window.localStorage.getItem("portfolio-theme") === "light";
-    } catch {
-      return false;
-    }
-  });
   const [activeSkill, setActiveSkill] = useState(0);
   const skillsTrack = useRef(null);
   const skillsViewport = useRef(null);
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
   const autoplayRef = useRef(null);
-
-  const setThemeVariables = (theme) => {
-    const rootStyle = document.documentElement.style;
-    rootStyle.setProperty("--bg", theme.bg);
-    rootStyle.setProperty("--surface", theme.surface);
-    rootStyle.setProperty("--surface-hover", theme.surfaceHover);
-    rootStyle.setProperty("--text", theme.text);
-    rootStyle.setProperty("--muted", theme.muted);
-    rootStyle.setProperty("--line", theme.line);
-    rootStyle.setProperty("--accent", theme.accent);
-    rootStyle.setProperty("--accent-glow", theme.accentGlow);
-    rootStyle.setProperty("--nav-bg", theme.navBg);
-    rootStyle.setProperty("--grid-line", theme.gridLine);
-    rootStyle.setProperty("--outline", theme.outline);
-    rootStyle.setProperty("--subtle-white", theme.subtleWhite);
-    rootStyle.setProperty("--shine", theme.shine);
-    rootStyle.setProperty("--orb-two", theme.orbTwo);
-    rootStyle.setProperty("--shadow", theme.shadow);
-    rootStyle.setProperty("--cursor-ring", theme.cursorRing);
-    rootStyle.setProperty("--cursor-hover", theme.cursorHover);
-  };
-
-  useEffect(() => {
-    setThemeVariables(lightMode ? lightTheme : darkTheme);
-    document.documentElement.dataset.theme = lightMode ? "light" : "dark";
-  }, []);
-
-  const toggleTheme = () => {
-    const nextLight = !lightMode;
-    const target = nextLight ? lightTheme : darkTheme;
-    const rootElement = document.documentElement;
-
-    gsap.killTweensOf(rootElement);
-
-    gsap.to(rootElement, {
-      duration: 0.7,
-      ease: "power2.inOut",
-      "--bg": target.bg,
-      "--surface": target.surface,
-      "--surface-hover": target.surfaceHover,
-      "--text": target.text,
-      "--muted": target.muted,
-      "--line": target.line,
-      "--accent": target.accent,
-      "--accent-glow": target.accentGlow,
-      "--nav-bg": target.navBg,
-      "--grid-line": target.gridLine,
-      "--outline": target.outline,
-      "--subtle-white": target.subtleWhite,
-      "--shine": target.shine,
-      "--orb-two": target.orbTwo,
-      "--shadow": target.shadow,
-      "--cursor-ring": target.cursorRing,
-      "--cursor-hover": target.cursorHover,
-      onStart: () => {
-        document.documentElement.dataset.theme = nextLight ? "light" : "dark";
-      },
-      onComplete: () => {
-        try {
-          window.localStorage.setItem("portfolio-theme", nextLight ? "light" : "dark");
-        } catch {}
-      }
-    });
-
-    gsap.timeline()
-      .to(".theme-toggle-icon", {
-        rotate: nextLight ? 180 : -180,
-        scale: 0.7,
-        duration: 0.22,
-        ease: "power2.in"
-      })
-      .to(".theme-toggle-icon", {
-        rotate: nextLight ? 360 : 0,
-        scale: 1,
-        duration: 0.48,
-        ease: "back.out(1.7)"
-      }, "-=0.02");
-
-    gsap.fromTo(".theme-toggle", {
-      boxShadow: "0 0 0 rgba(59,130,246,0)"
-    }, {
-      boxShadow: "0 0 34px rgba(59,130,246,0.35)",
-      duration: 0.35,
-      yoyo: true,
-      repeat: 1,
-      ease: "power2.out"
-    });
-
-    setLightMode(nextLight);
-  };
 
   const goToSkill = (index, animate = true) => {
     const nextIndex = (index + skills.length) % skills.length;
@@ -395,33 +260,6 @@ function App() {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-
-    if (menuOpen) {
-      const menuLinks = gsap.utils.toArray(".mobile-menu-links a");
-      const menuTl = gsap.timeline();
-      menuTl
-        .fromTo(".mobile-menu-head",
-          { y: 18, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }
-        )
-        .fromTo(menuLinks,
-          { x: 28, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.42, stagger: 0.055, ease: "power3.out" },
-          "-=0.22"
-        )
-        .fromTo(".mobile-menu-foot",
-          { y: 12, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.35, ease: "power2.out" },
-          "-=0.18"
-        );
-
-      return () => {
-        menuTl.kill();
-        gsap.set([".mobile-menu-head", ...menuLinks, ".mobile-menu-foot"], { clearProps: "all" });
-        document.body.style.overflow = "";
-      };
-    }
-
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
@@ -432,13 +270,23 @@ function App() {
       <div ref={cursor} className="cursor" />
       <div ref={cursorFollower} className="cursor-follower" />
 
-      <header className={`nav ${menuOpen ? "menu-is-open" : ""}`}>
+      <header className="nav">
         <a className="brand" href="#inicio" onClick={closeMenu}>
           <span className="brand-mark">D</span>
           <span>DAVID CASTILLO</span>
         </a>
 
-        <nav className="nav-links nav-links-desktop" aria-label="Navegación principal">
+        <button
+          className={`menu-button ${menuOpen ? "active" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Abrir menú"
+          aria-expanded={menuOpen}
+        >
+          <span />
+          <span />
+        </button>
+
+        <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
           {[
             ["inicio", "Inicio"],
             ["sobre-mi", "Sobre mí"],
@@ -447,60 +295,10 @@ function App() {
             ["practicas", "Prácticas"],
             ["contacto", "Contacto"]
           ].map(([id, label]) => (
-            <a key={id} href={`#${id}`}>{label}</a>
+            <a key={id} href={`#${id}`} onClick={closeMenu}>{label}</a>
           ))}
         </nav>
-
-        <button
-          className={`menu-button ${menuOpen ? "active" : ""}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-        >
-          <span />
-          <span />
-          <span />
-        </button>
       </header>
-
-      <div
-        className={`mobile-menu-backdrop ${menuOpen ? "open" : ""}`}
-        onClick={closeMenu}
-        aria-hidden="true"
-      />
-
-      <aside id="mobile-menu" className={`mobile-menu ${menuOpen ? "open" : ""}`} aria-hidden={!menuOpen}>
-        <div className="mobile-menu-head">
-          <div>
-            <span className="mobile-menu-eyebrow">PORTFOLIO · 2026</span>
-            <strong>DAVID CASTILLO</strong>
-          </div>
-          <span className="mobile-menu-status"><i /> ONLINE</span>
-        </div>
-
-        <nav className="mobile-menu-links" aria-label="Navegación móvil">
-          {[
-            ["inicio", "Inicio", "01"],
-            ["sobre-mi", "Sobre mí", "02"],
-            ["formacion", "Formación", "03"],
-            ["tecnologias", "Tecnologías", "04"],
-            ["practicas", "Prácticas", "05"],
-            ["contacto", "Contacto", "06"]
-          ].map(([id, label, number]) => (
-            <a key={id} href={`#${id}`} onClick={closeMenu}>
-              <span className="mobile-link-number">{number}</span>
-              <span className="mobile-link-label">{label}</span>
-              <span className="mobile-link-arrow">↗</span>
-            </a>
-          ))}
-        </nav>
-
-        <div className="mobile-menu-foot">
-          <span>APRENDER · CREAR · EVOLUCIONAR</span>
-          <span>© 2026</span>
-        </div>
-      </aside>
 
       <main>
         <section id="inicio" className="hero">
@@ -509,17 +307,6 @@ function App() {
           <div className="hero-orb orb-two" />
 
           <div className="hero-content">
-            <button
-              type="button"
-              className={`theme-toggle ${lightMode ? "is-light" : ""}`}
-              onClick={toggleTheme}
-              aria-label={lightMode ? "Cambiar al modo oscuro" : "Cambiar al modo claro"}
-              aria-pressed={lightMode}
-            >
-              <span className="theme-toggle-icon" aria-hidden="true">{lightMode ? "☾" : "☀"}</span>
-              <span>¿CÓMO DESEAS VERME?</span>
-            </button>
-
             <div className="hero-kicker"><span /> MI CUENTA · 2026</div>
 
             <h1 className="hero-title">
@@ -577,17 +364,13 @@ function App() {
               <div className="timeline-dot">01</div>
               <div className="timeline-card">
                 <div className="institute-img-wrap">
-                  <img src="/miguelSanchezLopez.png" alt="IES Miguel Sánchez López" className="institute-img" />
+                  <img src="/santaTeresa.jpg" alt="IES Santa Teresa" className="institute-img" />
                 </div>
-                <div className="timeline-year">FORMACIÓN COMPLETADA</div>
+                <div className="timeline-year">2021 – 2025</div>
                 <h3>Sistemas Microinformáticos<br />y Redes</h3>
-                <p>IES Miguel Sánchez López</p>
+                <p>IES Santa Teresa</p>
                 <span>Torredelcampo · Jaén</span>
-                <div>
-                  <a href="https://www.iesmiguelsanchezlopez.es/" target="_blank" rel="noreferrer">
-                    VISITAR CENTRO ↗
-                  </a>
-                </div>
+
               </div>
             </article>
 
@@ -597,7 +380,7 @@ function App() {
                 <div className="institute-img-wrap">
                   <img src="/IES-Fernando-III_logo.jpg" alt="IES Fernando III" className="institute-img" />
                 </div>
-                <div className="timeline-year">ACTUALMENTE ESTUDIANDO</div>
+                <div className="timeline-year">2025 – ACTUAL</div>
                 <h3>Desarrollo de Aplicaciones<br />Multiplataforma</h3>
                 <p>IES Fernando III</p>
                 <span>Martos · Jaén</span>
@@ -640,7 +423,6 @@ function App() {
           <div className="skills-grid" ref={skillsTrack}>
             {skills.map((skill) => (
               <article className="skill-card" key={skill.name}>
-                <span className="skill-number">{skill.type}</span>
                 <div className="skill-card-content">
                   <span className="skill-tag">TECNOLOGÍA</span>
                   <h3>{skill.name}</h3>
@@ -706,26 +488,14 @@ function App() {
             </div>
 
             <div className="tasks">
-              {tasks.map((task, i) => (
+              {tasks.map((task) => (
                 <div className="task" key={task}>
-                  <span>0{i + 1}</span>
                   <p>{task}</p>
                   <b>+</b>
                 </div>
               ))}
             </div>
           </div>
-        </section>
-
-        <section className="statement">
-          <div className="statement-glow" />
-          <p className="reveal">MI OBJETIVO</p>
-          <h2 className="reveal">Aprender.<br /><em>Crear. Evolucionar.</em></h2>
-          <span className="statement-line" />
-          <p className="statement-copy reveal">
-            Seguir creciendo dentro del mundo de la tecnología, ampliar mis
-            conocimientos y convertir cada nuevo reto en una oportunidad para aprender.
-          </p>
         </section>
 
         <section id="contacto" className="contact">
@@ -738,7 +508,9 @@ function App() {
             </p>
             <div className="contact-cards">
               <a className="contact-card" href="mailto:davidcas3008@gmail.com">
-                <span className="contact-card-number">01</span>
+                <div className="contact-card-icon-wrap">
+                  <img src={gmailIcon} alt="Gmail" className="contact-card-icon" />
+                </div>
                 <span className="contact-card-type">CORREO</span>
                 <h3>Envíame un Gmail</h3>
                 <p>davidcas3008@gmail.com</p>
@@ -746,7 +518,9 @@ function App() {
               </a>
 
               <a className="contact-card" href="https://www.linkedin.com/in/david-castillo-bb9271436/" target="_blank" rel="noreferrer">
-                <span className="contact-card-number">02</span>
+                <div className="contact-card-icon-wrap">
+                  <img src={linkedinIcon} alt="LinkedIn" className="contact-card-icon" />
+                </div>
                 <span className="contact-card-type">LINKEDIN</span>
                 <h3>Mi cuenta de LinkedIn</h3>
                 <p>Conecta conmigo profesionalmente.</p>
@@ -754,7 +528,9 @@ function App() {
               </a>
 
               <a className="contact-card" href="https://www.instagram.com/_daaviid.1010/" target="_blank" rel="noreferrer">
-                <span className="contact-card-number">03</span>
+                <div className="contact-card-icon-wrap">
+                  <img src={instagramIcon} alt="Instagram" className="contact-card-icon" />
+                </div>
                 <span className="contact-card-type">INSTAGRAM</span>
                 <h3>Mi cuenta de Instagram</h3>
                 <p>@_daaviid.1010</p>
