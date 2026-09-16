@@ -32,51 +32,90 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSkill, setActiveSkill] = useState(0);
   const skillsTrack = useRef(null);
-  const skillCards = useRef([]);
+  const skillsViewport = useRef(null);
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+  const autoplayRef = useRef(null);
 
-  const goToSkill = (index) => {
+  const goToSkill = (index, animate = true) => {
     const nextIndex = (index + skills.length) % skills.length;
     setActiveSkill(nextIndex);
 
-    const track = skillsTrack.current;
-    const card = skillCards.current[nextIndex];
-
-    if (track && card) {
-      track.scrollTo({
-        left: card.offsetLeft,
-        behavior: "smooth"
+    if (skillsTrack.current) {
+      gsap.to(skillsTrack.current, {
+        xPercent: -nextIndex * (100 / skills.length),
+        duration: animate ? 0.8 : 0,
+        ease: "power4.inOut",
+        overwrite: true
       });
     }
   };
 
+  const resetAutoplay = () => {
+    if (autoplayRef.current) window.clearInterval(autoplayRef.current);
+    autoplayRef.current = window.setInterval(() => {
+      setActiveSkill((current) => {
+        const next = (current + 1) % skills.length;
+        if (skillsTrack.current) {
+          gsap.to(skillsTrack.current, {
+            xPercent: -next * (100 / skills.length),
+            duration: 0.9,
+            ease: "power4.inOut",
+            overwrite: true
+          });
+        }
+        return next;
+      });
+    }, 4500);
+  };
+
+  const handleSkillPointerDown = (e) => {
+    touchStartX.current = e.clientX;
+    touchStartY.current = e.clientY;
+    if (skillsTrack.current) gsap.killTweensOf(skillsTrack.current);
+  };
+
+  const handleSkillPointerUp = (e) => {
+    if (touchStartX.current === null) return;
+
+    const diffX = e.clientX - touchStartX.current;
+    const diffY = e.clientY - touchStartY.current;
+    touchStartX.current = null;
+    touchStartY.current = null;
+
+    if (Math.abs(diffX) < 50 || Math.abs(diffX) < Math.abs(diffY)) return;
+
+    goToSkill(diffX < 0 ? activeSkill + 1 : activeSkill - 1);
+    resetAutoplay();
+  };
+
+  const handleSkillTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    if (skillsTrack.current) gsap.killTweensOf(skillsTrack.current);
+  };
+
+  const handleSkillTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+
+    const diffX = e.changedTouches[0].clientX - touchStartX.current;
+    const diffY = e.changedTouches[0].clientY - touchStartY.current;
+    touchStartX.current = null;
+    touchStartY.current = null;
+
+    if (Math.abs(diffX) < 50 || Math.abs(diffX) < Math.abs(diffY)) return;
+
+    goToSkill(diffX < 0 ? activeSkill + 1 : activeSkill - 1);
+    resetAutoplay();
+  };
+
   useEffect(() => {
-    const track = skillsTrack.current;
-    if (!track) return;
-
-    const handleScroll = () => {
-      const cards = skillCards.current.filter(Boolean);
-      if (!cards.length) return;
-
-      const closestIndex = cards.reduce((closest, card, index) => {
-        const currentDistance = Math.abs(track.scrollLeft - card.offsetLeft);
-        const closestDistance = Math.abs(track.scrollLeft - cards[closest].offsetLeft);
-        return currentDistance < closestDistance ? index : closest;
-      }, 0);
-
-      setActiveSkill(closestIndex);
+    goToSkill(0, false);
+    resetAutoplay();
+    return () => {
+      if (autoplayRef.current) window.clearInterval(autoplayRef.current);
     };
-
-    track.addEventListener("scroll", handleScroll, { passive: true });
-    return () => track.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      goToSkill(activeSkill + 1);
-    }, 5000);
-
-    return () => window.clearInterval(timer);
-  }, [activeSkill]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -135,24 +174,30 @@ function App() {
         });
       });
 
-    gsap.fromTo(".skill-card",
-  {
-    y: 40,
-    opacity: 0
-  },
-  {
-    y: 0,
-    opacity: 1,
-    stagger: 0.08,
-    duration: 0.8,
-    ease: "power3.out",
-    scrollTrigger: {
-      trigger: ".skills-grid",
-      start: "top 85%",
-      once: true
-    }
-  }
-);
+      gsap.from(".skills-carousel", {
+        y: 55,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".skills-carousel",
+          start: "top 82%",
+          once: true
+        }
+      });
+
+      gsap.from(".skill-card", {
+        scale: 0.96,
+        opacity: 0,
+        stagger: 0.06,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".skills-carousel",
+          start: "top 82%",
+          once: true
+        }
+      });
 
       // Contact cards reveal
       gsap.from(".contact-card", {
@@ -362,15 +407,23 @@ function App() {
         </p>
       </div>
 
-      <div className="skills-carousel">
-        <div className="skills-slider-wrap">
+      <div
+        className="skills-carousel"
+        ref={skillsViewport}
+        onMouseEnter={() => autoplayRef.current && window.clearInterval(autoplayRef.current)}
+        onMouseLeave={resetAutoplay}
+      >
+        <div
+          className="skills-slider-wrap"
+          onPointerDown={handleSkillPointerDown}
+          onPointerUp={handleSkillPointerUp}
+          onPointerCancel={handleSkillPointerUp}
+          onTouchStart={handleSkillTouchStart}
+          onTouchEnd={handleSkillTouchEnd}
+        >
           <div className="skills-grid" ref={skillsTrack}>
-            {skills.map((skill, index) => (
-              <article
-                className="skill-card"
-                key={skill.name}
-                ref={(el) => { skillCards.current[index] = el; }}
-              >
+            {skills.map((skill) => (
+              <article className="skill-card" key={skill.name}>
                 <span className="skill-number">{skill.type}</span>
                 <div className="skill-card-content">
                   <span className="skill-tag">TECNOLOGÍA</span>
@@ -388,7 +441,7 @@ function App() {
             className="skills-control"
             type="button"
             aria-label="Tecnología anterior"
-            onClick={() => goToSkill(activeSkill - 1)}
+            onClick={() => { goToSkill(activeSkill - 1); resetAutoplay(); }}
           >
             ←
           </button>
@@ -401,7 +454,7 @@ function App() {
                 className={`skills-dot ${activeSkill === index ? "active" : ""}`}
                 aria-label={`Ir a ${skill.name}`}
                 aria-current={activeSkill === index ? "true" : undefined}
-                onClick={() => goToSkill(index)}
+                onClick={() => { goToSkill(index); resetAutoplay(); }}
               />
             ))}
           </div>
@@ -410,7 +463,7 @@ function App() {
             className="skills-control"
             type="button"
             aria-label="Siguiente tecnología"
-            onClick={() => goToSkill(activeSkill + 1)}
+            onClick={() => { goToSkill(activeSkill + 1); resetAutoplay(); }}
           >
             →
           </button>
