@@ -34,6 +34,13 @@ function App() {
   const cursorFollower = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSkill, setActiveSkill] = useState(0);
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem("portfolio-theme") || "dark";
+    } catch {
+      return "dark";
+    }
+  });
   const skillsTrack = useRef(null);
   const skillsViewport = useRef(null);
   const touchStartX = useRef(null);
@@ -260,10 +267,58 @@ function App() {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
+
+    const mm = window.matchMedia("(max-width: 850px)");
+    if (mm.matches) {
+      const panel = document.querySelector(".nav-links");
+      const links = document.querySelectorAll(".nav-links a");
+      const backdrop = document.querySelector(".menu-backdrop");
+
+      if (menuOpen) {
+        gsap.killTweensOf([panel, links, backdrop]);
+        gsap.set(panel, { xPercent: 100, autoAlpha: 1 });
+        gsap.set(backdrop, { autoAlpha: 0 });
+        gsap.set(links, { x: 28, opacity: 0 });
+
+        const tl = gsap.timeline();
+        tl.to(panel, { xPercent: 0, duration: 0.55, ease: "power4.out" })
+          .to(backdrop, { autoAlpha: 1, duration: 0.35, ease: "power2.out" }, 0.08)
+          .to(links, {
+            x: 0,
+            opacity: 1,
+            duration: 0.55,
+            stagger: 0.055,
+            ease: "power3.out"
+          }, 0.18);
+      } else if (panel) {
+        gsap.killTweensOf([panel, links, backdrop]);
+        gsap.to(links, { x: 18, opacity: 0, duration: 0.16, stagger: 0.02, ease: "power2.in" });
+        gsap.to(backdrop, { autoAlpha: 0, duration: 0.22, ease: "power2.in" });
+        gsap.to(panel, { xPercent: 100, duration: 0.42, delay: 0.03, ease: "power3.in" });
+      }
+    }
+
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    try {
+      localStorage.setItem("portfolio-theme", nextTheme);
+    } catch {}
+
+    gsap.timeline()
+      .to(".theme-toggle", { scale: 0.94, duration: 0.12, ease: "power2.out" })
+      .to(".theme-toggle-icon", { rotation: theme === "dark" ? 180 : -180, scale: 1.18, duration: 0.45, ease: "back.out(2)" }, 0)
+      .to(".theme-toggle", { scale: 1, duration: 0.45, ease: "elastic.out(1, 0.45)" }, 0.12);
+  };
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   return (
     <div ref={root} className="site">
@@ -279,12 +334,18 @@ function App() {
         <button
           className={`menu-button ${menuOpen ? "active" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Abrir menú"
+          aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={menuOpen}
         >
           <span />
           <span />
         </button>
+
+        <div
+          className={`menu-backdrop ${menuOpen ? "open" : ""}`}
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
 
         <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
           {[
@@ -307,6 +368,17 @@ function App() {
           <div className="hero-orb orb-two" />
 
           <div className="hero-content">
+            <button
+              type="button"
+              className="theme-toggle"
+              onClick={toggleTheme}
+              aria-label={`Cambiar a modo ${theme === "dark" ? "claro" : "oscuro"}`}
+              title={`Cambiar a modo ${theme === "dark" ? "claro" : "oscuro"}`}
+            >
+              <span className="theme-toggle-icon" aria-hidden="true">{theme === "dark" ? "☀" : "☾"}</span>
+              <span>¿CÓMO DESEAS VERME?</span>
+            </button>
+
             <div className="hero-kicker"><span /> MI CUENTA · 2026</div>
 
             <h1 className="hero-title">
