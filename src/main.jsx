@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./styles.css";
+import avatar from "./avatar.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -260,6 +261,18 @@ function App() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
+  useEffect(() => {
+    let favicon = document.querySelector('link[data-portfolio-favicon]');
+    if (!favicon) {
+      favicon = document.createElement("link");
+      favicon.rel = "icon";
+      favicon.type = "image/png";
+      favicon.setAttribute("data-portfolio-favicon", "true");
+      document.head.appendChild(favicon);
+    }
+    favicon.href = avatar;
+  }, []);
+
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -283,7 +296,21 @@ function App() {
           <span />
         </button>
 
+        <div
+          className={`menu-backdrop ${menuOpen ? "open" : ""}`}
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
+
         <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
+          <div className="mobile-menu-brand">
+            <span className="mobile-menu-avatar">D</span>
+            <div>
+              <strong>DAVID CASTILLO</strong>
+              <small>PORTFOLIO · 2026</small>
+            </div>
+          </div>
+
           {[
             ["inicio", "Inicio"],
             ["sobre-mi", "Sobre mí"],

@@ -93,6 +93,8 @@ button { font: inherit; }
 }
 .nav-links a:hover { opacity: 1; color: var(--accent); }
 .menu-button { display: none; }
+.menu-backdrop,
+.mobile-menu-brand { display: none; }
 
 /* Hero Section */
 .hero {
@@ -553,6 +555,24 @@ button { font: inherit; }
 }
 
 @media (max-width: 520px) {
+  .nav {
+    height: 68px;
+    padding: 0 5vw;
+  }
+
+  .nav-links {
+    width: min(91vw, 360px);
+    padding: 92px 22px 28px;
+  }
+
+  .mobile-menu-brand {
+    padding-bottom: 22px;
+  }
+
+  .nav-links a {
+    min-height: 55px;
+    font-size: 12px;
+  }
   .skills-head {
     flex-direction: column;
     align-items: flex-start;
@@ -881,10 +901,11 @@ footer {
   }
 
   .menu-button {
+    position: relative;
     display: flex;
-    width: 38px;
-    height: 38px;
-    border: 1px solid var(--line);
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(148,163,184,.28);
     background: transparent;
     color: white;
     flex-direction: column;
@@ -910,21 +931,125 @@ footer {
     transform: translateY(-3.5px) rotate(-45deg);
   }
 
-  .nav-links {
+  .menu-backdrop {
+    display: block;
     position: fixed;
     inset: 0;
-    background: rgba(11, 15, 23, 0.98);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 28px;
-    transform: translateY(-100%);
-    transition: transform .45s cubic-bezier(.77,0,.18,1);
+    z-index: 98;
+    background: rgba(2, 6, 15, .58);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .35s ease, visibility .35s ease;
   }
 
-  .nav-links.open { transform: translateY(0); }
-  .nav-links a { font-size: 14px; }
+  .menu-backdrop.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: auto;
+    width: min(88vw, 390px);
+    height: 100dvh;
+    box-sizing: border-box;
+    padding: 104px 28px 34px;
+    background:
+      radial-gradient(circle at 80% 12%, rgba(59,130,246,.16), transparent 30%),
+      linear-gradient(145deg, rgba(15,23,42,.99), rgba(7,11,20,.99));
+    border-left: 1px solid rgba(59,130,246,.22);
+    box-shadow: -24px 0 70px rgba(0,0,0,.38);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translateX(105%);
+    transition: transform .55s cubic-bezier(.77,0,.18,1);
+  }
+
+  .nav-links.open { transform: translateX(0); }
+
+  .mobile-menu-brand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 0 0 26px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-menu-avatar {
+    width: 43px;
+    height: 43px;
+    flex: 0 0 43px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    color: var(--accent);
+    font: 700 17px "DM Mono", monospace;
+    box-shadow: 0 0 24px rgba(59,130,246,.18);
+  }
+
+  .mobile-menu-brand strong {
+    display: block;
+    color: var(--text);
+    font: 600 12px "DM Mono", monospace;
+    letter-spacing: .12em;
+  }
+
+  .mobile-menu-brand small {
+    display: block;
+    margin-top: 5px;
+    color: var(--muted);
+    font: 400 8px "DM Mono", monospace;
+    letter-spacing: .14em;
+  }
+
+  .nav-links a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 58px;
+    box-sizing: border-box;
+    padding: 0 8px;
+    border-bottom: 1px solid rgba(148,163,184,.10);
+    font-size: 13px;
+    letter-spacing: .12em;
+    opacity: .9;
+    transform: translateX(0);
+  }
+
+  .nav-links a::before {
+    content: "";
+    width: 0;
+    height: 1px;
+    margin-right: 0;
+    background: var(--accent);
+    transition: width .3s ease, margin-right .3s ease;
+  }
+
+  .nav-links a:hover,
+  .nav-links a:focus-visible {
+    opacity: 1;
+    color: var(--accent);
+    padding-left: 4px;
+  }
+
+  .nav-links a:hover::before,
+  .nav-links a:focus-visible::before {
+    width: 18px;
+    margin-right: 12px;
+  }
 
   .hero {
     min-height: auto;
