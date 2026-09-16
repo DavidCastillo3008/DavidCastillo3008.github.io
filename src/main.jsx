@@ -381,17 +381,20 @@ function App() {
 
             <div className="hero-kicker"><span /> MI CUENTA · 2026</div>
 
-            <h1 className="hero-title">
-              <span className="line">DAVID</span>
-              <span className="line accent-line">CASTILLO DE HARO</span>
-            </h1>
-
             <div className="hero-bottom">
-              <p className="hero-copy">
-                Técnico de Sistemas Microinformáticos y Redes
-                <br />
-                <span>Estudiante de Desarrollo de Aplicaciones Multiplataforma</span>
-              </p>
+              <div className="hero-intro">
+                <h1 className="hero-title">
+                  <span className="line">DAVID</span>
+                  <span className="line accent-line">CASTILLO</span>
+                  <span className="line accent-line">DE HARO</span>
+                </h1>
+
+                <p className="hero-copy">
+                  Técnico de Sistemas Microinformáticos y Redes
+                  <br />
+                  <span>Estudiante de Desarrollo de Aplicaciones Multiplataforma</span>
+                </p>
+              </div>
 
               <div className="hero-photo-wrap">
                 <div className="hero-tech-visual" aria-label="Tecnologías de David Castillo De Haro">
