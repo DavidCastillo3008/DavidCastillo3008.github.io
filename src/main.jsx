@@ -392,13 +392,55 @@ function App() {
                 <br />
                 <span>Estudiante de Desarrollo de Aplicaciones Multiplataforma</span>
               </p>
+
               <div className="hero-photo-wrap">
-                <img
-                  ref={heroImage}
-                  src="fotoPerfil.jpeg"
-                  alt="David Castillo De Haro"
-                  className="hero-photo"
-                />
+                <div className="hero-tech-visual" aria-label="Tecnologías de David Castillo De Haro">
+                  <div className="hero-orbit hero-orbit-outer" />
+                  <div className="hero-orbit hero-orbit-middle" />
+                  <div className="hero-orbit hero-orbit-inner" />
+
+                  <span className="hero-orbit-dot dot-top" />
+                  <span className="hero-orbit-dot dot-right" />
+                  <span className="hero-orbit-dot dot-bottom" />
+                  <span className="hero-orbit-dot dot-left" />
+
+                  <div className="hero-skill-pill pill-html">
+                    <span className="skill-pill-icon html-icon">5</span>
+                    <span>HTML</span>
+                  </div>
+                  <div className="hero-skill-pill pill-css">
+                    <span className="skill-pill-icon css-icon">3</span>
+                    <span>CSS</span>
+                  </div>
+                  <div className="hero-skill-pill pill-java">
+                    <span className="skill-pill-icon java-icon">☕</span>
+                    <span>JAVA</span>
+                  </div>
+                  <div className="hero-skill-pill pill-sql">
+                    <span className="skill-pill-icon sql-icon">▰</span>
+                    <span>SQL</span>
+                  </div>
+                  <div className="hero-skill-pill pill-db">
+                    <span className="skill-pill-icon db-icon">▰</span>
+                    <span>BASES DE DATOS</span>
+                  </div>
+                  <div className="hero-skill-pill pill-systems">
+                    <span className="skill-pill-icon systems-icon">▣</span>
+                    <span>SISTEMAS<br />INFORMÁTICOS</span>
+                  </div>
+
+                  <div className="hero-photo-core">
+                    <div className="hero-photo-halo" />
+                    <div className="hero-photo-inner">
+                      <img
+                        ref={heroImage}
+                        src="/fotoPerfil.jpeg"
+                        alt="David Castillo De Haro"
+                        className="hero-photo"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
