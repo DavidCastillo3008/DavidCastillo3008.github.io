@@ -132,7 +132,7 @@ button { font: inherit; }
   background: radial-gradient(circle, rgba(37, 99, 235, 0.15), transparent 70%);
 }
 
-.hero-content { width: 100%; max-width: 1450px; margin: auto; }
+.hero-content { width: 100%; max-width: 1450px; margin: auto; position: relative; }
 .hero-kicker {
   display: flex; align-items: center; gap: 10px;
   margin-bottom: 20px;
@@ -838,7 +838,7 @@ footer {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    z-index: 120;
+    z-index: 1002;
     border-radius: 10px;
     box-shadow: 0 8px 24px rgba(0,0,0,.16);
     backdrop-filter: blur(14px);
@@ -857,7 +857,7 @@ footer {
   .menu-backdrop {
     position: fixed;
     inset: 72px 0 0;
-    z-index: 108;
+    z-index: 998;
     background: rgba(2, 6, 14, .52);
     backdrop-filter: blur(4px);
     opacity: 0;
@@ -888,9 +888,10 @@ footer {
     align-items: stretch;
     gap: 6px;
     transform: translateX(100%);
-    visibility: hidden;
-    opacity: 0;
-    z-index: 110;
+    visibility: visible;
+    opacity: 1;
+    z-index: 999;
+    pointer-events: none;
     overflow-y: auto;
     overscroll-behavior: contain;
   }
@@ -898,6 +899,11 @@ footer {
   .nav-links.open {
     visibility: visible;
     opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-links {
+    transition: none;
   }
 
   .nav-links::before {
@@ -1043,7 +1049,7 @@ body {
 /* Theme switch */
 .theme-toggle {
   position: absolute;
-  top: 12px;
+  top: 0;
   right: 0;
   z-index: 10;
   display: inline-flex;

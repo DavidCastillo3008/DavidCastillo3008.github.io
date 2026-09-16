@@ -276,13 +276,13 @@ function App() {
 
       if (menuOpen) {
         gsap.killTweensOf([panel, links, backdrop]);
-        gsap.set(panel, { xPercent: 100, autoAlpha: 1 });
-        gsap.set(backdrop, { autoAlpha: 0 });
+        gsap.set(panel, { x: "100%", opacity: 1, visibility: "visible" });
+        gsap.set(backdrop, { opacity: 0, visibility: "visible" });
         gsap.set(links, { x: 28, opacity: 0 });
 
         const tl = gsap.timeline();
-        tl.to(panel, { xPercent: 0, duration: 0.55, ease: "power4.out" })
-          .to(backdrop, { autoAlpha: 1, duration: 0.35, ease: "power2.out" }, 0.08)
+        tl.to(panel, { x: "0%", duration: 0.55, ease: "power4.out" })
+          .to(backdrop, { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.08)
           .to(links, {
             x: 0,
             opacity: 1,
@@ -293,8 +293,8 @@ function App() {
       } else if (panel) {
         gsap.killTweensOf([panel, links, backdrop]);
         gsap.to(links, { x: 18, opacity: 0, duration: 0.16, stagger: 0.02, ease: "power2.in" });
-        gsap.to(backdrop, { autoAlpha: 0, duration: 0.22, ease: "power2.in" });
-        gsap.to(panel, { xPercent: 100, duration: 0.42, delay: 0.03, ease: "power3.in" });
+        gsap.to(backdrop, { opacity: 0, duration: 0.22, ease: "power2.in" });
+        gsap.to(panel, { x: "100%", opacity: 1, duration: 0.42, delay: 0.03, ease: "power3.in" });
       }
     }
 
