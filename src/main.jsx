@@ -395,6 +395,33 @@ function App() {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
+
+    if (menuOpen) {
+      const menuLinks = gsap.utils.toArray(".mobile-menu-links a");
+      const menuTl = gsap.timeline();
+      menuTl
+        .fromTo(".mobile-menu-head",
+          { y: 18, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }
+        )
+        .fromTo(menuLinks,
+          { x: 28, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.42, stagger: 0.055, ease: "power3.out" },
+          "-=0.22"
+        )
+        .fromTo(".mobile-menu-foot",
+          { y: 12, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.35, ease: "power2.out" },
+          "-=0.18"
+        );
+
+      return () => {
+        menuTl.kill();
+        gsap.set([".mobile-menu-head", ...menuLinks, ".mobile-menu-foot"], { clearProps: "all" });
+        document.body.style.overflow = "";
+      };
+    }
+
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
@@ -405,23 +432,13 @@ function App() {
       <div ref={cursor} className="cursor" />
       <div ref={cursorFollower} className="cursor-follower" />
 
-      <header className="nav">
+      <header className={`nav ${menuOpen ? "menu-is-open" : ""}`}>
         <a className="brand" href="#inicio" onClick={closeMenu}>
           <span className="brand-mark">D</span>
           <span>DAVID CASTILLO</span>
         </a>
 
-        <button
-          className={`menu-button ${menuOpen ? "active" : ""}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Abrir menú"
-          aria-expanded={menuOpen}
-        >
-          <span />
-          <span />
-        </button>
-
-        <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
+        <nav className="nav-links nav-links-desktop" aria-label="Navegación principal">
           {[
             ["inicio", "Inicio"],
             ["sobre-mi", "Sobre mí"],
@@ -430,10 +447,60 @@ function App() {
             ["practicas", "Prácticas"],
             ["contacto", "Contacto"]
           ].map(([id, label]) => (
-            <a key={id} href={`#${id}`} onClick={closeMenu}>{label}</a>
+            <a key={id} href={`#${id}`}>{label}</a>
           ))}
         </nav>
+
+        <button
+          className={`menu-button ${menuOpen ? "active" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </header>
+
+      <div
+        className={`mobile-menu-backdrop ${menuOpen ? "open" : ""}`}
+        onClick={closeMenu}
+        aria-hidden="true"
+      />
+
+      <aside id="mobile-menu" className={`mobile-menu ${menuOpen ? "open" : ""}`} aria-hidden={!menuOpen}>
+        <div className="mobile-menu-head">
+          <div>
+            <span className="mobile-menu-eyebrow">PORTFOLIO · 2026</span>
+            <strong>DAVID CASTILLO</strong>
+          </div>
+          <span className="mobile-menu-status"><i /> ONLINE</span>
+        </div>
+
+        <nav className="mobile-menu-links" aria-label="Navegación móvil">
+          {[
+            ["inicio", "Inicio", "01"],
+            ["sobre-mi", "Sobre mí", "02"],
+            ["formacion", "Formación", "03"],
+            ["tecnologias", "Tecnologías", "04"],
+            ["practicas", "Prácticas", "05"],
+            ["contacto", "Contacto", "06"]
+          ].map(([id, label, number]) => (
+            <a key={id} href={`#${id}`} onClick={closeMenu}>
+              <span className="mobile-link-number">{number}</span>
+              <span className="mobile-link-label">{label}</span>
+              <span className="mobile-link-arrow">↗</span>
+            </a>
+          ))}
+        </nav>
+
+        <div className="mobile-menu-foot">
+          <span>APRENDER · CREAR · EVOLUCIONAR</span>
+          <span>© 2026</span>
+        </div>
+      </aside>
 
       <main>
         <section id="inicio" className="hero">
