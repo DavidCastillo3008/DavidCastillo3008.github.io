@@ -469,7 +469,11 @@ function App() {
                 <h3>Sistemas Microinformáticos<br />y Redes</h3>
                 <p>IES Santa Teresa</p>
                 <span>Torredelcampo · Jaén</span>
-
+                <div>
+                  <a href="https://www.iesmiguelsanchezlopez.es/" target="_blank" rel="noreferrer">
+                    VISITAR CENTRO ↗
+                  </a>
+                </div>
               </div>
             </article>
 
