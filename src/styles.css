@@ -1494,6 +1494,28 @@ html[data-theme="light"] .contact-card-icon-wrap {
   animation-delay: -3s;
 }
 
+
+/* Información personal mostrada alrededor de la foto del inicio */
+.hero-info-pill {
+  min-width: 150px;
+  min-height: 58px;
+  padding: 12px 22px;
+  font-size: 13px;
+  letter-spacing: .03em;
+}
+
+.pill-location {
+  top: 25%;
+  left: -2%;
+  animation-delay: -.6s;
+}
+
+.pill-age {
+  top: 25%;
+  right: -2%;
+  animation-delay: -2s;
+}
+
 .pill-systems {
   bottom: 2%;
   left: 50%;

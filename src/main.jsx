@@ -407,29 +407,11 @@ function App() {
                   <span className="hero-orbit-dot dot-bottom" />
                   <span className="hero-orbit-dot dot-left" />
 
-                  <div className="hero-skill-pill pill-html">
-                    <span className="skill-pill-icon html-icon">5</span>
-                    <span>HTML</span>
+                  <div className="hero-skill-pill hero-info-pill pill-location">
+                    <span>Martos (Jaén)</span>
                   </div>
-                  <div className="hero-skill-pill pill-css">
-                    <span className="skill-pill-icon css-icon">3</span>
-                    <span>CSS</span>
-                  </div>
-                  <div className="hero-skill-pill pill-java">
-                    <span className="skill-pill-icon java-icon">☕</span>
-                    <span>JAVA</span>
-                  </div>
-                  <div className="hero-skill-pill pill-sql">
-                    <span className="skill-pill-icon sql-icon">▰</span>
-                    <span>SQL</span>
-                  </div>
-                  <div className="hero-skill-pill pill-db">
-                    <span className="skill-pill-icon db-icon">▰</span>
-                    <span>BASES DE DATOS</span>
-                  </div>
-                  <div className="hero-skill-pill pill-systems">
-                    <span className="skill-pill-icon systems-icon">▣</span>
-                    <span>SISTEMAS<br />INFORMÁTICOS</span>
+                  <div className="hero-skill-pill hero-info-pill pill-age">
+                    <span>22 años</span>
                   </div>
 
                   <div className="hero-photo-core">
