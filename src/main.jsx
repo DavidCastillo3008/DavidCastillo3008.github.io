@@ -317,6 +317,103 @@ function App() {
   };
 
   useEffect(() => {
+    const visual = document.querySelector(".hero-visual");
+    if (!visual) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    const ctx = gsap.context(() => {
+      // Movimiento orgánico continuo: nada se queda completamente estático.
+      gsap.to(".hero-photo-wrap", {
+        y: -9,
+        rotation: 0.8,
+        duration: 2.8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      gsap.to(".frame-back", {
+        rotation: -4,
+        x: -7,
+        y: 8,
+        duration: 5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      gsap.to(".frame-front", {
+        rotation: 2,
+        x: 5,
+        y: -5,
+        duration: 4.2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+
+      gsap.to(".line-one", {
+        rotation: 360,
+        transformOrigin: "50% 50%",
+        duration: 18,
+        repeat: -1,
+        ease: "none"
+      });
+
+      gsap.to(".line-two", {
+        rotation: -360,
+        transformOrigin: "50% 50%",
+        duration: 25,
+        repeat: -1,
+        ease: "none"
+      });
+
+      gsap.utils.toArray(".hero-skill").forEach((card, index) => {
+        gsap.to(card, {
+          y: index % 2 === 0 ? -12 : 10,
+          x: index % 3 === 0 ? 5 : -4,
+          rotation: index % 2 === 0 ? 1.5 : -1.5,
+          duration: 2.2 + index * 0.22,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: index * 0.16
+        });
+      });
+
+      gsap.to(".hero-dot", {
+        scale: 1.8,
+        opacity: 0.35,
+        duration: 1.4,
+        repeat: -1,
+        yoyo: true,
+        stagger: 0.3,
+        ease: "sine.inOut"
+      });
+
+      const quickX = gsap.quickTo(visual, "x", { duration: 0.55, ease: "power3.out" });
+      const quickY = gsap.quickTo(visual, "y", { duration: 0.55, ease: "power3.out" });
+
+      const handleMove = (event) => {
+        const x = (event.clientX / window.innerWidth - 0.5) * 12;
+        const y = (event.clientY / window.innerHeight - 0.5) * 8;
+        quickX(x);
+        quickY(y);
+      };
+
+      window.addEventListener("mousemove", handleMove);
+
+      return () => {
+        window.removeEventListener("mousemove", handleMove);
+      };
+    }, visual);
+
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
     document.documentElement.dataset.theme = theme;
   }, [theme]);
 
@@ -381,24 +478,60 @@ function App() {
 
             <div className="hero-kicker"><span /> MI CUENTA · 2026</div>
 
-            <h1 className="hero-title">
-              <span className="line">DAVID</span>
-              <span className="line accent-line">CASTILLO DE HARO</span>
-            </h1>
+            <div className="hero-layout">
+              <div className="hero-intro">
+                <h1 className="hero-title">
+                  <span className="line">DAVID</span>
+                  <span className="line accent-line">CASTILLO DE HARO</span>
+                </h1>
 
-            <div className="hero-bottom">
-              <p className="hero-copy">
-                Técnico de Sistemas Microinformáticos y Redes
-                <br />
-                <span>Estudiante de Desarrollo de Aplicaciones Multiplataforma</span>
-              </p>
-              <div className="hero-photo-wrap">
-                <img
-                  ref={heroImage}
-                  src="fotoPerfil.jpeg"
-                  alt="David Castillo De Haro"
-                  className="hero-photo"
-                />
+                <p className="hero-copy">
+                  Técnico de Sistemas Microinformáticos y Redes
+                  <br />
+                  <span>Estudiante de Desarrollo de Aplicaciones Multiplataforma</span>
+                </p>
+              </div>
+
+              <div className="hero-visual" aria-label="Conocimientos de David">
+                <div className="hero-visual-glow" />
+                <div className="hero-frame frame-back" />
+                <div className="hero-frame frame-front" />
+                <div className="hero-line line-one" />
+                <div className="hero-line line-two" />
+
+                <div className="hero-photo-wrap">
+                  <div className="hero-photo-shine" />
+                  <img
+                    ref={heroImage}
+                    src="fotoPerfil.jpeg"
+                    alt="David Castillo De Haro"
+                    className="hero-photo"
+                  />
+                </div>
+
+                <div className="hero-skill skill-html">
+                  <b>HTML</b><span>Estructura</span>
+                </div>
+                <div className="hero-skill skill-css">
+                  <b>CSS</b><span>Interfaces</span>
+                </div>
+                <div className="hero-skill skill-java">
+                  <b>JAVA</b><span>Programación</span>
+                </div>
+                <div className="hero-skill skill-sql">
+                  <b>SQL</b><span>Datos</span>
+                </div>
+                <div className="hero-skill skill-db">
+                  <b>BASES DE DATOS</b><span>Modelado</span>
+                </div>
+                <div className="hero-skill skill-systems">
+                  <b>SISTEMAS</b><span>Soporte</span>
+                </div>
+
+                <span className="hero-dot dot-one" />
+                <span className="hero-dot dot-two" />
+                <span className="hero-dot dot-three" />
+                <span className="hero-dot dot-four" />
               </div>
             </div>
           </div>
