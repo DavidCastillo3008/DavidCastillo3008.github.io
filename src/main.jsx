@@ -10,12 +10,12 @@ const linkedinIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA8AAAAPACAYA
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
-  { name: "HTML", text: "Estructura semántica y accesible." },
-  { name: "CSS", text: "Interfaces responsive y modernas." },
-  { name: "Java", text: "Programación orientada a objetos." },
-  { name: "SQL", text: "Consultas y gestión de datos." },
-  { name: "Bases de datos", text: "Modelado y organización de información." },
-  { name: "Sistemas", text: "Mantenimiento y configuración de equipos." }
+  { name: "HTML", text: "Estructura semántica y accesible.", Image: "/HTML5_logo_.jpg" },
+  { name: "CSS", text: "Interfaces responsive y modernas.",Image: "/css.jpg"  },
+  { name: "Java", text: "Programación orientada a objetos." ,Image: "/java.png"  },
+  { name: "SQL", text: "Consultas y gestión de datos." ,Image: "/Sql_data_base_with_logo.png" },
+  { name: "Bases de datos", text: "Modelado y organización de información." ,Image: "/base_datos.png" },
+  { name: "Sistemas", text: "Mantenimiento y configuración de equipos." ,Image: "/sistemas.jpg" }
 ];
 
 const tasks = [
