@@ -503,7 +503,7 @@ function App() {
                   <div className="hero-photo-shine" />
                   <img
                     ref={heroImage}
-                    src="fotoPerfil.jpeg"
+                    src="fotoPerfil.png"
                     alt="David Castillo De Haro"
                     className="hero-photo"
                   />
