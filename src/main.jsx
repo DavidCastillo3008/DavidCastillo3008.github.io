@@ -414,7 +414,13 @@ function App() {
                     <span>22 años</span>
                   </div>
 
-                  <div className="hero-photo-core">
+                  <div className="hero-photo-square">
+                    <span className="square-corner corner-tl" />
+                    <span className="square-corner corner-tr" />
+                    <span className="square-corner corner-br" />
+                    <span className="square-corner corner-bl" />
+                    <span className="square-scan-line" />
+
                     <div className="hero-photo-halo" />
                     <div className="hero-photo-inner">
                       <img
@@ -425,6 +431,7 @@ function App() {
                       />
                     </div>
                   </div>
+                </div>
                 </div>
               </div>
             </div>
