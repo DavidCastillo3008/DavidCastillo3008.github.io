@@ -10,12 +10,36 @@ const linkedinIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA8AAAAPACAYA
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
-  { name: "HTML", text: "Estructura semántica y accesible.", Image: "/HTML5_logo_.jpg" },
-  { name: "CSS", text: "Interfaces responsive y modernas.",Image: "/css.jpg"  },
-  { name: "Java", text: "Programación orientada a objetos." ,Image: "/java.png"  },
-  { name: "SQL", text: "Consultas y gestión de datos." ,Image: "/Sql_data_base_with_logo.png" },
-  { name: "Bases de datos", text: "Modelado y organización de información." ,Image: "/base_datos.png" },
-  { name: "Sistemas", text: "Mantenimiento y configuración de equipos." ,Image: "/sistemas.jpg" }
+  {
+    name: "HTML",
+    text: "Estructura semántica y accesible.",
+    image: "/images/skills/html.webp"
+  },
+  {
+    name: "CSS",
+    text: "Interfaces responsive y modernas.",
+    image: "/images/skills/css.svg"
+  },
+  {
+    name: "Java",
+    text: "Programación orientada a objetos.",
+    image: "/images/skills/java.png"
+  },
+  {
+    name: "SQL",
+    text: "Consultas y gestión de datos.",
+    image: "/images/skills/sql.png"
+  },
+  {
+    name: "Bases de datos",
+    text: "Modelado y organización de información.",
+    image: "/images/skills/database.png"
+  },
+  {
+    name: "Sistemas",
+    text: "Mantenimiento y configuración de equipos.",
+    image: "/images/skills/sistemas.jpg"
+  }
 ];
 
 const tasks = [
@@ -470,7 +494,7 @@ function App() {
                 <p>IES Santa Teresa</p>
                 <span>Torredelcampo · Jaén</span>
                 <div>
-                  <a href="https://www.iesmiguelsanchezlopez.es/" target="_blank" rel="noreferrer">
+                  <a href="https://iesfernandoiii.es/" target="_blank" rel="noreferrer">
                     VISITAR CENTRO ↗
                   </a>
                 </div>
@@ -526,6 +550,14 @@ function App() {
           <div className="skills-grid" ref={skillsTrack}>
             {skills.map((skill) => (
               <article className="skill-card" key={skill.name}>
+                <div className="skill-image-wrap">
+                  <img
+                    src={skill.image}
+                    alt={`${skill.name} logo`}
+                    className="skill-image"
+                    loading="lazy"
+                  />
+                </div>
                 <div className="skill-card-content">
                   <span className="skill-tag">TECNOLOGÍA</span>
                   <h3>{skill.name}</h3>
