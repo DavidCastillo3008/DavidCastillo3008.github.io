@@ -10,36 +10,12 @@ const linkedinIcon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA8AAAAPACAYA
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
-  {
-    name: "HTML",
-    text: "Estructura semántica y accesible.",
-    image: "/images/skills/html.webp"
-  },
-  {
-    name: "CSS",
-    text: "Interfaces responsive y modernas.",
-    image: "/images/skills/css.svg"
-  },
-  {
-    name: "Java",
-    text: "Programación orientada a objetos.",
-    image: "/images/skills/java.png"
-  },
-  {
-    name: "SQL",
-    text: "Consultas y gestión de datos.",
-    image: "/images/skills/sql.png"
-  },
-  {
-    name: "Bases de datos",
-    text: "Modelado y organización de información.",
-    image: "/images/skills/database.png"
-  },
-  {
-    name: "Sistemas",
-    text: "Mantenimiento y configuración de equipos.",
-    image: "/images/skills/sistemas.jpg"
-  }
+  { name: "HTML", text: "Estructura semántica y accesible." },
+  { name: "CSS", text: "Interfaces responsive y modernas." },
+  { name: "Java", text: "Programación orientada a objetos." },
+  { name: "SQL", text: "Consultas y gestión de datos." },
+  { name: "Bases de datos", text: "Modelado y organización de información." },
+  { name: "Sistemas", text: "Mantenimiento y configuración de equipos." }
 ];
 
 const tasks = [
@@ -493,11 +469,7 @@ function App() {
                 <h3>Sistemas Microinformáticos<br />y Redes</h3>
                 <p>IES Santa Teresa</p>
                 <span>Torredelcampo · Jaén</span>
-                <div>
-                  <a href="https://iesfernandoiii.es/" target="_blank" rel="noreferrer">
-                    VISITAR CENTRO ↗
-                  </a>
-                </div>
+
               </div>
             </article>
 
@@ -550,14 +522,6 @@ function App() {
           <div className="skills-grid" ref={skillsTrack}>
             {skills.map((skill) => (
               <article className="skill-card" key={skill.name}>
-                <div className="skill-image-wrap">
-                  <img
-                    src={skill.image}
-                    alt={`${skill.name} logo`}
-                    className="skill-image"
-                    loading="lazy"
-                  />
-                </div>
                 <div className="skill-card-content">
                   <span className="skill-tag">TECNOLOGÍA</span>
                   <h3>{skill.name}</h3>
